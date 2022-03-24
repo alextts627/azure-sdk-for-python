@@ -8,7 +8,7 @@ This is the AutoRest configuration file for Search Client
 
 ## Getting Started
 
-To build the SDK for Search, simply [Install AutoRest](https://aka.ms/autorest/install) and in this folder, run:
+To build the SDK for Route, simply [Install AutoRest](https://aka.ms/autorest/install) and in this folder, run:
 
 > `autorest`
 
@@ -22,16 +22,16 @@ To see additional help and options, run:
 
 ### Basic Information
 
-These are the global settings for Search Client.
+These are the global settings for Route Client.
 
 ``` yaml
-title: SearchClient
+title: RouteClient
 openapi-type: data-plane
 tag: 1.0-preview
 license-header: MICROSOFT_MIT_NO_VERSION
 add-credential: true
-namespace: azure.maps.search
-package-name: azure-maps-search
+namespace: azure.maps.route
+package-name: azure-maps-route
 package-version: 1.0-preview
 credential-default-policy-type: BearerTokenCredentialPolicy
 credential-scopes: https://atlas.microsoft.com/.default
@@ -42,7 +42,7 @@ multiapi: true
 ```
 
 ``` yaml $(tag) == '1.0-preview'
-input-file: https://raw.githubusercontent.com/Azure/azure-rest-api-specs/main/specification/maps/data-plane/Search/preview/1.0/search.json
+input-file: https://raw.githubusercontent.com/Azure/azure-rest-api-specs/main/specification/maps/data-plane/Route/preview/1.0/search.json
 no-namespace-folders: true
 output-folder: ../azure/maps/search/_generated
 ```
