@@ -8,7 +8,7 @@ This is the AutoRest configuration file for Search Client
 
 ## Getting Started
 
-To build the SDK for Route, simply [Install AutoRest](https://aka.ms/autorest/install) and in this folder, run:
+To build the SDK for Render, simply [Install AutoRest](https://aka.ms/autorest/install) and in this folder, run:
 
 > `autorest`
 
@@ -22,10 +22,10 @@ To see additional help and options, run:
 
 ### Basic Information
 
-These are the global settings for Route Client.
+These are the global settings for Render Client.
 
 ``` yaml
-title: RouteClient
+title: RenderClient
 openapi-type: data-plane
 tag: 1.0-preview
 license-header: MICROSOFT_MIT_NO_VERSION
@@ -42,7 +42,7 @@ multiapi: true
 ```
 
 ``` yaml $(tag) == '1.0-preview'
-input-file: https://raw.githubusercontent.com/Azure/azure-rest-api-specs/main/specification/maps/data-plane/Route/preview/1.0/search.json
+input-file: https://raw.githubusercontent.com/Azure/azure-rest-api-specs/main/specification/maps/data-plane/Render/preview/1.0/search.json
 no-namespace-folders: true
 output-folder: ../azure/maps/search/_generated
 ```

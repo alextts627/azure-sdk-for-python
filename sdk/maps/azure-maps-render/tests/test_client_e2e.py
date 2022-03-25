@@ -4,8 +4,8 @@ import pytest
 
 from devtools_testutils import AzureTestCase
 from azure_devtools.scenario_tests import RecordingProcessor
-from azure.maps.search import SearchClient
-from azure.maps.search.models import LatLon, StructuredAddress
+from azure.maps.render import RenderClient
+from azure.maps.render.models import LatLon, StructuredAddress
 
 
 
@@ -26,84 +26,84 @@ class HeaderReplacer(RecordingProcessor):
 
 
 
-class AzureMapsSearchClientE2ETest(AzureTestCase):
+class AzureMapsRenderClientE2ETest(AzureTestCase):
     def __init__(self, *args, **kwargs):
-        super(AzureMapsSearchClientE2ETest, self).__init__(*args, **kwargs)
-        header_replacer = HeaderReplacer()
+        super(AzureMapsRenderClientE2ETest, self).__init__(*args, **kwargs)
+        header_replacer = HeaderReFplacer()
         header_replacer.register_header("subscription-key", "<RealSubscriptionKey>")
         header_replacer.register_header("x-ms-client-id", "<RealClientId>")
         self.recording_processors.append(header_replacer)
 
     def setUp(self):
-        super(AzureMapsSearchClientE2ETest, self).setUp()
-        self.client = self.create_client_from_credential(SearchClient,
+        super(AzureMapsRenderClientE2ETest, self).setUp()
+        self.client = self.create_client_from_credential(RenderClient,
             credential="NotUsed",
             client_id=self.get_settings_value("CLIENT_ID"),
-            authentication_policy = self.get_credential(SearchClient))
+            authentication_policy = self.get_credential(RenderClient))
         assert self.client is not None
 
-    def test_fuzzy_search_poi_coordinates(self):
-        result = self.client.fuzzy_search("Taipei 101", coordinates=LatLon(25.0338053, 121.5640089))
+    def test_fuzzy_render_poi_coordinates(self):
+        result = self.client.fuzzy_render("Taipei 101", coordinates=LatLon(25.0338053, 121.5640089))
         assert len(result.results) > 0 and result.results[0].type == "POI"
 
-    def test_fuzzy_search_poi_country_set(self):
-        result = self.client.fuzzy_search("Taipei 101", country_filter=["TW"])
+    def test_fuzzy_render_poi_country_set(self):
+        result = self.client.fuzzy_render("Taipei 101", country_filter=["TW"])
         assert len(result.results) > 0
         for item in result.results:
             assert item.address.country_code_iso3 == "TWN"
 
-        result = self.client.fuzzy_search("Taipei 101", country_filter=["US"])
+        result = self.client.fuzzy_render("Taipei 101", country_filter=["US"])
         assert len(result.results) > 0
         for item in result.results:
             assert item.address.country_code_iso3 == "USA"
 
-        result = self.client.fuzzy_search("Taipei 101", country_filter=["AQ"])
+        result = self.client.fuzzy_render("Taipei 101", country_filter=["AQ"])
         assert len(result.results) == 0
 
-    def test_fuzzy_search_address(self):
-        result = self.client.fuzzy_search("19F., No. 68, Sec. 5, Zhongxiao E. Rd., Xinyi Dist., Taipei City, Taiwan")
+    def test_fuzzy_render_address(self):
+        result = self.client.fuzzy_render("19F., No. 68, Sec. 5, Zhongxiao E. Rd., Xinyi Dist., Taipei City, Taiwan")
         assert len(result.results) > 0 and result.results[0].address.municipality == "Taipei City"
 
-    def test_fuzzy_search_multiple_results(self):
-        result = self.client.fuzzy_search("Taiwan High Speed Rail")
+    def test_fuzzy_render_multiple_results(self):
+        result = self.client.fuzzy_render("Taiwan High Speed Rail")
         assert len(result.results) > 0
 
         assert result.summary.total_results > result.summary.num_results
-        result2 = self.client.fuzzy_search("Taiwan High Speed Rail", skip=result.summary.num_results)
+        result2 = self.client.fuzzy_render("Taiwan High Speed Rail", skip=result.summary.num_results)
         assert len(result2.results) > 0 and result2.results[0] != result.results[0]
 
-    def test_search_point_of_interest(self):
-        result = self.client.search_point_of_interest("Taipei")
+    def test_render_point_of_interest(self):
+        result = self.client.render_point_of_interest("Taipei")
         assert len(result.results) > 0
         for item in result.results:
             assert item.type == "POI"
 
-    def test_search_address(self):
-        result = self.client.search_address("Taipei")
+    def test_render_address(self):
+        result = self.client.render_address("Taipei")
         assert len(result.results) > 0
         for item in result.results:
             assert item.type != "POI"
 
-    def test_search_nearby_point_of_interest(self):
-        result = self.client.search_nearby_point_of_interest(coordinates=LatLon(25.0338053, 121.5640089))
+    def test_render_nearby_point_of_interest(self):
+        result = self.client.render_nearby_point_of_interest(coordinates=LatLon(25.0338053, 121.5640089))
         assert len(result.results) > 0
         for item in result.results:
             assert item.type == "POI"
 
-    def test_search_point_of_interest_category(self):
-        result = self.client.search_point_of_interest_category("RESTAURANT", coordinates=LatLon(25.0338053, 121.5640089))
+    def test_render_point_of_interest_category(self):
+        result = self.client.render_point_of_interest_category("RESTAURANT", coordinates=LatLon(25.0338053, 121.5640089))
         assert len(result.results) > 0
         for item in result.results:
             assert item.type == "POI"
             assert "RESTAURANT" in [category.code for category in item.point_of_interest.classifications]
 
-    def test_search_structured_address(self):
+    def test_render_structured_address(self):
         addr = StructuredAddress(street_number=68,
                                  street_name="Sec. 5, Zhongxiao E. Rd.",
                                  municipality_subdivision="Xinyi Dist.",
                                  municipality="Taipei City",
                                  country_code="TW")
-        result = self.client.search_structured_address(addr)
+        result = self.client.render_structured_address(addr)
         assert len(result.results) > 0
         for item in result.results:
             assert item.type != "POI"

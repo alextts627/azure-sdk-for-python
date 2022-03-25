@@ -6,5 +6,5 @@
 # Changes may cause incorrect behavior and will be lost if the code is regenerated.
 # --------------------------------------------------------------------------
 
-from ._render_client import RenderClient
+from ._render_client_async import RenderClient
 __all__ = ['RenderClient']
