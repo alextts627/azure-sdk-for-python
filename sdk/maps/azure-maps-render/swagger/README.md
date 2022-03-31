@@ -42,7 +42,7 @@ multiapi: true
 ```
 
 ``` yaml $(tag) == '1.0-preview'
-input-file: https://raw.githubusercontent.com/Azure/azure-rest-api-specs/main/specification/maps/data-plane/Render/preview/1.0/search.json
+input-file: https://raw.githubusercontent.com/Azure/azure-rest-api-specs/main/specification/maps/data-plane/Render/preview/1.0/render.json
 no-namespace-folders: true
-output-folder: ../azure/maps/search/_generated
+output-folder: ../azure/maps/render/_generated
 ```
