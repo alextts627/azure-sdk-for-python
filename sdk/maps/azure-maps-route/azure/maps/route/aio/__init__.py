@@ -6,8 +6,5 @@
 # Changes may cause incorrect behavior and will be lost if the code is regenerated.
 # --------------------------------------------------------------------------
 
-from ._traffic_operations import TrafficOperations
-
-__all__ = [
-    'TrafficOperations',
-]
+from ._search_client_async import SearchClient
+__all__ = ['SearchClient']

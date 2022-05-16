@@ -49,7 +49,51 @@ class TrafficClient(object):
         **kwargs  # type: Any
     ):
         # type: (...) -> IO
-            
+        """**Traffic Flow Tile**
+
+        **Applies to**\ : S0 and S1 pricing tiers.
+
+        The Azure Flow Tile API serves 256 x 256 pixel tiles showing traffic flow. All tiles use the
+        same grid system. Because the traffic tiles use transparent images, they can be layered on top
+        of map tiles to create a compound  display. The Flow tiles use colors to indicate either the
+        speed of traffic on different road segments, or the difference between that speed and the
+        free-flow speed on the road segment in question.
+
+        :param format: Desired format of the response. Possible values are png & pbf.
+        :type format: str or ~azure.maps.traffic.models.TileFormat
+        :param style: .. raw:: html
+
+            <p>The style to be used to render the tile.</p>.
+        :type style: str or ~azure.maps.traffic.models.TrafficFlowTileStyle
+        :param zoom: Zoom level for the desired tile. For *raster* tiles, value must be in the range:
+         0-22 (inclusive). For *vector* tiles, value must be in the range: 0-22 (inclusive).
+         Please see `Zoom Levels and Tile Grid
+         <https://docs.microsoft.com/en-us/azure/location-based-services/zoom-levels-and-tile-grid>`_
+         for details.
+        :type zoom: int
+        :param x_tile_index: X coordinate of the tile on zoom grid. Value must be in the range [0,
+         2:code:`<sup>`zoom`</sup>` -1].
+
+         Please see `Zoom Levels and Tile Grid
+         <https://docs.microsoft.com/en-us/azure/location-based-services/zoom-levels-and-tile-grid>`_
+         for details.
+        :type x_tile_index: int
+        :param y_tile_index: Y coordinate of the tile on zoom grid. Value must be in the range [0,
+         2:code:`<sup>`zoom`</sup>` -1].
+
+         Please see `Zoom Levels and Tile Grid
+         <https://docs.microsoft.com/en-us/azure/location-based-services/zoom-levels-and-tile-grid>`_
+         for details.
+        :type y_tile_index: int
+        :param thickness: The value of the width of the line representing traffic. This value is a
+         multiplier and the accepted values range from 1 - 20. The default value is 10. This parameter
+         is not valid when format is pbf.
+        :type thickness: int
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: IO, or the result of cls(response)
+        :rtype: IO
+        :raises: ~azure.core.exceptions.HttpResponseError
+        """
         return self._traffic_client.get_traffic_flow_tile(
             style,
             zoom,
@@ -66,7 +110,43 @@ class TrafficClient(object):
         **kwargs  # type: Any
     ):
         # type: (...) -> "models.TrafficFlowSegmentResult"
-            
+        """**Traffic Flow Segment**
+
+        **Applies to**\ : S0 and S1 pricing tiers.
+
+        This service provides information about the speeds and travel times of the road fragment
+        closest to the given coordinates. It is designed to work alongside the Flow layer of the Render
+        Service to support clickable  flow data visualizations. With this API, the client side can
+        connect any place in the map with flow data on the  closest road and present it to the user.
+
+        :param format: Desired format of the response. Value can be either *json* or *xml*.
+        :type format: str or ~azure.maps.traffic.models.TextFormat
+        :param style: The style to be used to render the tile. Valid values are absolute which returns
+         colors reflecting the absolute speed measured, relative which returns the speed relative to
+         free-flow, Relative-delay which displays relative speeds only where they are different from the
+         freeflow speeds.
+        :type style: str or ~azure.maps.traffic.models.TrafficFlowSegmentStyle
+        :param zoom: Zoom level for the desired tile. Zoom value must be in the range: 0-22
+         (inclusive).
+         Please see `Zoom Levels and Tile Grid
+         <https://docs.microsoft.com/en-us/azure/location-based-services/zoom-levels-and-tile-grid>`_
+         for details.
+        :type zoom: int
+        :param query: Coordinates of the point close to the road segment. They have to be
+         comma-separated and calculated using EPSG4326 projection.
+        :type query: str
+        :param unit: Unit of speed in KMPH or MPH.
+        :type unit: str or ~azure.maps.traffic.models.SpeedUnit
+        :param thickness: The value of the width of the line representing traffic. This value is a
+         multiplier and the accepted values range from 1 - 20. The default value is 10.
+        :type thickness: int
+        :param open_lr: Boolean on whether the response should include OpenLR code.
+        :type open_lr: bool
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: TrafficFlowSegmentResult, or the result of cls(response)
+        :rtype: ~azure.maps.traffic.models.TrafficFlowSegmentResult
+        :raises: ~azure.core.exceptions.HttpResponseError
+        """    
         return self._traffic_client.get_traffic_flow_segment(
             style,
             zoom,
@@ -85,7 +165,50 @@ class TrafficClient(object):
         **kwargs  # type: Any
     ):
         # type: (...) -> IO
-        
+        """**Traffic Incident Tile**
+
+        **Applies to**\ : S0 and S1 pricing tiers.
+
+        This service serves 256 x 256 pixel tiles showing traffic incidents. All tiles use the same
+        grid system. Because the traffic tiles use transparent images, they can be layered on top of
+        map tiles to create a compound display. Traffic tiles render graphics to indicate traffic on
+        the roads in the specified area.
+
+        :param format: Desired format of the response. Possible values are png & pbf.
+        :type format: str or ~azure.maps.traffic.models.TileFormat
+        :param style: The style to be used to render the tile. This parameter is not valid when format
+         is pbf.
+        :type style: str or ~azure.maps.traffic.models.TrafficIncidentTileStyle
+        :param zoom: Zoom level for the desired tile. For *raster* tiles, value must be in the range:
+         0-22 (inclusive). For *vector* tiles, value must be in the range: 0-22 (inclusive).
+         Please see `Zoom Levels and Tile Grid
+         <https://docs.microsoft.com/en-us/azure/location-based-services/zoom-levels-and-tile-grid>`_
+         for details.
+        :type zoom: int
+        :param x_tile_index: X coordinate of the tile on zoom grid. Value must be in the range [0,
+         2:code:`<sup>`zoom`</sup>` -1].
+
+         Please see `Zoom Levels and Tile Grid
+         <https://docs.microsoft.com/en-us/azure/location-based-services/zoom-levels-and-tile-grid>`_
+         for details.
+        :type x_tile_index: int
+        :param y_tile_index: Y coordinate of the tile on zoom grid. Value must be in the range [0,
+         2:code:`<sup>`zoom`</sup>` -1].
+
+         Please see `Zoom Levels and Tile Grid
+         <https://docs.microsoft.com/en-us/azure/location-based-services/zoom-levels-and-tile-grid>`_
+         for details.
+        :type y_tile_index: int
+        :param traffic_state: Reference value for the state of traffic at a particular time, obtained
+         from the Viewport API call, trafficModelId attribute in trafficState field. It is updated every
+         minute, and is valid for two minutes before it times out. Use -1 to  get the most recent
+         traffic information. Default: most recent traffic information.
+        :type traffic_state: str
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: IO, or the result of cls(response)
+        :rtype: IO
+        :raises: ~azure.core.exceptions.HttpResponseError
+        """
         return self._traffic_client.get_traffic_incident_tile(
             style,
             zoom,
@@ -102,6 +225,70 @@ class TrafficClient(object):
         **kwargs  # type: Any
     ):
         # type: (...) -> "_models.TrafficIncidentDetailResult"
+        """**Traffic Incident Detail**
+
+        **Applies to**\ : S0 and S1 pricing tiers.
+
+        This API provides information on traffic incidents inside a given bounding box, based on the
+        current Traffic  Model ID. The Traffic Model ID is available to grant synchronization of data
+        between calls and API's. The  Traffic Model ID is a key value for determining the currency of
+        traffic incidents. It is updated every minute,  and is valid for two minutes before it times
+        out. It is used in rendering  `incident tiles
+        <https://docs.microsoft.com/en-us/rest/api/maps/traffic/gettrafficincidenttile>`_. It can be
+        obtained from the `Viewport API
+        <https://docs.microsoft.com/en-us/rest/api/maps/traffic/gettrafficincidentviewport>`_.
+
+        :param format: Desired format of the response. Value can be either *json* or *xml*.
+        :type format: str or ~azure.maps.traffic.models.TextFormat
+        :param style: The style that will be used to render the tile in Traffic `Incident Tile API
+         <https://docs.microsoft.com/en-us/rest/api/maps/traffic/gettrafficincidenttile>`_.  This will
+         have an effect on the coordinates of traffic incidents in the reply.
+        :type style: str or ~azure.maps.traffic.models.TrafficIncidentDetailStyle
+        :param boundingbox: The ``boundingbox`` is represented by two value pairs describing it's
+         corners (first pair for lower left corner and second for upper right). The pairs can either be
+         specified using any of the ``projection``\ 's specified below (e.g., *minY,minX,maxY,maxX*\ )
+         or by two latitude-longitude pairs (e.g., *minLat,minLon,maxLat,maxLon*\
+         ).:code:`<br>`:code:`<br>`NOTE: If latitude/longitude pairs are used, then the ``projection``
+         parameter must be set to "EPSG4326".
+        :type boundingbox: str
+        :param bounding_zoom: Zoom level for desired tile. 0 to 22 for raster tiles, 0 through 22 for
+         vector tiles.
+        :type bounding_zoom: int
+        :param trafficmodelid: Number referencing traffic model. This can be obtained from the
+         `Viewport API
+         <https://docs.microsoft.com/en-us/rest/api/maps/traffic/gettrafficincidentviewport>`_. It is
+         updated every minute, and is valid for two minutes before it times out. If the wrong Traffic
+         Model ID is specified, the correct one will be returned by the interface. A value of -1 will
+         always invoke the most recent traffic model.
+        :type trafficmodelid: str
+        :param language: `ISO 639-1 code <https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes>`_ for
+         the output language. Supported languages are ar, ca, cs, da, de, el, en, en-GB, en-US, es, et,
+         fi, fr, he, hu, id, in*, it, lt, lv, nb, nl, no, pl, pt, ro, ru, sk, sv, th, tr, zh.
+
+         Please refer to `Supported Languages
+         <https://docs.microsoft.com/en-us/azure/azure-maps/supported-languages>`_ for details. When
+         invalid language code is provided response is returned in English. When incident cause or
+         description does not have translation, English description is returned.
+        :type language: str
+        :param projection: The projection used to specify the coordinates in the request and response.
+         `EPSG900913 <http://docs.openlayers.org/library/spherical_mercator.html>`_ (default) or
+         `EPSG4326 <http://spatialreference.org/ref/epsg/4326/>`_.
+        :type projection: str or ~azure.maps.traffic.models.ProjectionStandard
+        :param geometries: The type of vector geometry added to incidents (returned in the :code:`<v>`
+         element of the response).
+        :type geometries: str or ~azure.maps.traffic.models.IncidentGeometryType
+        :param expand_cluster: Boolean to indicate whether to list all traffic incidents in a cluster
+         separately.
+        :type expand_cluster: bool
+        :param original_position: Boolean on whether to return the original position of the incident
+         (:code:`<op>`) as well as the one shifted to the beginning of the traffic tube (:code:`<op>`).
+        :type original_position: bool
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: TrafficIncidentDetailResult, or the result of cls(response)
+        :rtype: ~azure.maps.traffic.models.TrafficIncidentDetailResult
+        :raises: ~azure.core.exceptions.HttpResponseError
+        """
+        
         return self._traffic_client.get_traffic_incident_tile(
             style,
             boundingbox,
@@ -121,6 +308,51 @@ class TrafficClient(object):
         **kwargs  # type: Any
     ):
         # type: (...) -> "_models.TrafficIncidentViewportResult"
+         """**Traffic Incident Viewport**
+
+        **Applies to**\ : S0 and S1 pricing tiers.
+
+        This API returns legal and technical information for the viewport described in the request. It
+        should be called  by client applications whenever the viewport changes (for instance, through
+        zooming, panning, going to a  location, or displaying a route). The request should contain the
+        bounding box and zoom level of the viewport  whose information is needed. The return will
+        contain map version information, as well as the current Traffic  Model ID and copyright IDs.
+        The Traffic Model ID returned by the Viewport Description is used by other APIs to  retrieve
+        last traffic information for further processing.
+
+        :param format: Desired format of the response. Value can be either *json* or *xml*.
+        :type format: str or ~azure.maps.traffic.models.TextFormat
+        :param boundingbox: Bounding box of the map viewport in `EPSG900913
+         <http://docs.openlayers.org/library/spherical_mercator.html>`_ projection. The ``boundingbox``
+         is represented by two value pairs describing it's corners (first pair for lower left corner and
+         second for upper right). All values should be separated by commas (e.g., *minY,minX,maxY,maxX*\
+         ). The maximum size of the bounding box that can be passed is dependent on the requested zoom
+         level. The width and height cannot exceed 4092 pixels when rendered on the given zoom
+         level.:code:`<br>`:code:`<br>`NOTE: Bounding boxes that cross the 180° meridian require special
+         treatment. For such boxes, the eastern *maxX* value will be negative, and thus less than the
+         *minX* value west of the 180° meridian. To address that, the value 40075016.6855874 should be
+         added to the true *maxX* value before it is passed in the request.
+        :type boundingbox: str
+        :param boundingzoom: Zoom level of the map viewport. Used to determine whether the view can be
+         zoomed in.
+        :type boundingzoom: int
+        :param overviewbox: Bounding box of the overview map in `EPSG900913
+         <http://docs.openlayers.org/library/spherical_mercator.html>`_
+         projection.:code:`<br>`:code:`<br>`Used in case the overview box/mini map has different
+         copyright data than the main map. If there is no mini map, the same coordinates as
+         ``boundingBox`` is used.
+        :type overviewbox: str
+        :param overviewzoom: Zoom level of the overview map. If there is no mini map, use the same zoom
+         level as boundingZoom.
+        :type overviewzoom: int
+        :param copyright: Determines what copyright information to return. When true the copyright text
+         is returned; when false only the copyright index is returned.
+        :type copyright: bool
+        :keyword callable cls: A custom type or function that will be passed the direct response
+        :return: TrafficIncidentViewportResult, or the result of cls(response)
+        :rtype: ~azure.maps.traffic.models.TrafficIncidentViewportResult
+        :raises: ~azure.core.exceptions.HttpResponseError
+        """
         
         return self._traffic_client.get_traffic_incident_tile(
             boundingbox,

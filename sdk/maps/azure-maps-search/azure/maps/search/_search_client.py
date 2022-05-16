@@ -41,7 +41,7 @@ class SearchClient(object):
 
 
     @distributed_trace
-    def list_polygons(
+    def get_polygons(
         self,
         geometry_ids,  # type: List[str]
         **kwargs  # type: Any
@@ -160,7 +160,7 @@ class SearchClient(object):
 
 
     @distributed_trace
-    def get_point_of_interest_category_tree(
+    def get_point_of_interest_categories(
         self,
         **kwargs  # type: Any
     ):
